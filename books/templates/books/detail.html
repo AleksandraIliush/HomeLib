@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Книга</h1>
+<div class="row">
+    <div class="col-md">
+        <p>Название книги: {{objects.title}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'books:home' %}">
+            <button type="button" class="btn btn-light">Назад к списку</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
