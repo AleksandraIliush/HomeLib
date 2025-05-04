@@ -21,5 +21,5 @@ from HomeLib.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', include(('books.urls', 'books'))),
-    path('home/', home),
+    path('', home, name='home'),
 ]
