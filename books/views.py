@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from books.forms import HtmlForm, BookForm
 from books.models import Book
 
 __all__ = (
-    'home', 'BookDetailView',
+    'home', 'BookDetailView', 'BookCreateView', 'BookUpdateView', 'BookDeleteView'
 )
 def home(request, pk=None):
     if request.method == 'POST':
@@ -25,3 +26,18 @@ def home(request, pk=None):
 class BookDetailView(DetailView):
     queryset = Book.objects.all()
     template_name = 'books/detail.html'
+
+class BookCreateView(CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'books/create.html'
+    success_url = reverse_lazy('books:home')
+class BookUpdateView(UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'books/update.html'
+    success_url = reverse_lazy('books:home')
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = 'books/delete.html'
+    success_url = reverse_lazy('books:home')
