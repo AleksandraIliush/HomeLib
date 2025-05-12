@@ -1,3 +1,4 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -32,21 +33,23 @@ class BookDetailView(DetailView):
     queryset = Book.objects.all()
     template_name = 'books/detail.html'
 
-class BookCreateView(CreateView):
+class BookCreateView(SuccessMessageMixin, CreateView):
     model = Book
     form_class = BookForm
     template_name = 'books/create.html'
     success_url = reverse_lazy('books:home')
-class BookUpdateView(UpdateView):
+    success_message = "Книга успешно создана"
+class BookUpdateView(SuccessMessageMixin, UpdateView):
     model = Book
     form_class = BookForm
     template_name = 'books/update.html'
     success_url = reverse_lazy('books:home')
-class BookDeleteView(DeleteView):
+    success_message = "Книга успешно отредактирована"
+class BookDeleteView(SuccessMessageMixin, DeleteView):
     model = Book
     template_name = 'books/delete.html'
     success_url = reverse_lazy('books:home')
-
+    success_message = "Книга успешно удалена"
 class BookListView(ListView):
     paginate_by = 2
     model = Book
